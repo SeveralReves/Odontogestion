@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>Odonto</b>Gestion',
-    'logo_img' => 'resources/images/logo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
