@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ClientController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,10 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/clients', [ClientController::class, 'showView'])->name('clients');
+Route::get('/clients/create', [ClientController::class, 'showCreate'])->name('create-client');
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', function() {
-    return view('home');
-})->name('home')->middleware('auth');
+// Route::get('/home', function() {
+//     return view('home');
+// })->name('home')->middleware('auth');
