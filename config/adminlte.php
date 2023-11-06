@@ -327,7 +327,7 @@ return [
         [
             'text' => 'change_password',
             'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-fw fa-bookmark',
         ],
         [
             'text'    => 'multilevel',

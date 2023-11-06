@@ -7,15 +7,15 @@
 @stop
 
 @section('content')
-    @if (isset($success) && !empty($success))
-        <div class="row">
-            <div class="col-12">
-                <div class="alert alert-success" role="alert">
-                    {{ $success }}
-                </div>
-            </div>
-        </div>
-    @endif
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
     <div class="row">
         <div class="col-12">
             <a href="clients/create" class="btn btn-primary">Crear Nuevo</a>

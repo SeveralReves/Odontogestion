@@ -8,7 +8,17 @@
 @stop
 
 @section('content')
-    <form action="{{ route('clients.store') }}" method="post">
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+{{-- @dd(session()->all()) --}}
+<form action="{{ route('clients.store') }}" method="post">
         @csrf
         <div class="row">
             <x-adminlte-input name="name" label="Nombres" placeholder="Ingresa los nombres del cliente"
