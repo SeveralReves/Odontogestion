@@ -29,11 +29,11 @@ Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
-Route::get('/clients', [ClientController::class, 'index']);
-Route::get('/clients/{id}', [ClientController::class, 'show']);
-Route::post('/clients', [ClientController::class, 'store']);
-Route::put('/clients/{id}', [ClientController::class, 'update']);
-Route::delete('/clients/{id}', [ClientController::class, 'delete']);
+Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+Route::get('/clients/{id}', [ClientController::class, 'show'])->name('clients.show');
+Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
+Route::put('/clients/{id}', [ClientController::class, 'update'])->name('clients.update');
+Route::delete('/clients/{id}', [ClientController::class, 'delete'])->name('clients.delete');
 
 Route::get('/appointmentType', [AppointmentTypeController::class, 'index']);
 Route::get('/appointmentType/{id}', [AppointmentTypeController::class, 'show']);
