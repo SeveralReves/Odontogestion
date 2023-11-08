@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\AppointmentTypeController;
+use App\Http\Controllers\AppointmentStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +34,16 @@ Route::get('/clients/{id}', [ClientController::class, 'show']);
 Route::post('/clients', [ClientController::class, 'store']);
 Route::put('/clients/{id}', [ClientController::class, 'update']);
 Route::delete('/clients/{id}', [ClientController::class, 'delete']);
+
+Route::get('/appointmentType', [AppointmentTypeController::class, 'index']);
+Route::get('/appointmentType/{id}', [AppointmentTypeController::class, 'show']);
+Route::post('/appointmentType', [AppointmentTypeController::class, 'store']);
+Route::put('/appointmentType/{id}', [AppointmentTypeController::class, 'update']);
+Route::delete('/appointmentType/{id}', [AppointmentTypeController::class, 'delete']);
+
+Route::get('/appointmentStatus', [AppointmentStatusController::class, 'index']);
+Route::get('/appointmentStatus/{id}', [AppointmentStatusController::class, 'show']);
+Route::post('/appointmentStatus', [AppointmentStatusController::class, 'store']);
+Route::put('/appointmentStatus/{id}', [AppointmentStatusController::class, 'update']);
+Route::delete('/appointmentStatus/{id}', [AppointmentStatusController::class, 'delete']);
+
