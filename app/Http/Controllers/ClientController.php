@@ -13,29 +13,29 @@ class ClientController extends Controller
 {
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-        // $validator = Validator::make($request->all(), [
+        // $request->validate([
         //     'name' => 'required',
-        //     'lastname' => 'required',
-        //     'phone' => ['required', 'regex:/^04\d{9}$/'],
-        //     'birthday' => 'required|date_format:d/m/Y',
-        //     'email' => [
-        //         'required',
-        //         'email',
-        //         Rule::unique('clients')->where(function ($query) {
-        //             return $query->whereNull('deleted_at');
-        //         })
-        //     ],
-        //     'id_number' => [
-        //         'required',
-        //         'regex:/^\d{7,8}$/',
-        //         Rule::unique('clients')->where(function ($query) {
-        //             return $query->whereNull('deleted_at');
-        //         })
-        //     ],
-        // ])->validate();
+        // ]);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'lastname' => 'required',
+            'phone' => ['required', 'regex:/^04\d{9}$/'],
+            'birthday' => 'required|date_format:d/m/Y',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('clients')->where(function ($query) {
+                    return $query->whereNull('deleted_at');
+                })
+            ],
+            'id_number' => [
+                'required',
+                'regex:/^\d{7,8}$/',
+                Rule::unique('clients')->where(function ($query) {
+                    return $query->whereNull('deleted_at');
+                })
+            ],
+        ])->validate();
 
 
             // if ($validator->fails()) {
@@ -54,11 +54,10 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         $client = Client::find($id);
-
+        
         if (!$client) {
             return response()->json(['message' => 'Cliente no encontrado'], 404);
         }
-
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'lastname' => 'required',
@@ -75,9 +74,10 @@ class ClientController extends Controller
         $requestData = $request->all();
         $requestData['birthday'] = Carbon::createFromFormat('d/m/Y', $requestData['birthday'])->format('Y-m-d');
 
-        $client->update($requestData);
 
-        return response()->json($client);
+        $client->update($requestData);
+        return redirect()->route('clients')
+                    ->with('message', 'Cliente actualizado satisfactoriamente.');
     }
 
     public function show($id)
@@ -94,14 +94,14 @@ class ClientController extends Controller
     public function delete($id)
     {
         $client = Client::find($id);
-
         if (!$client) {
             return response()->json(['message' => 'Cliente no encontrado'], 404);
         }
 
         $client->delete();
 
-        return response()->json(['message' => 'Cliente eliminado']);
+        return redirect()->route('clients')
+                    ->with('message', 'Cliente eliminado satisfactoriamente.');
     }
     public function index(Request $request)
     {
@@ -126,9 +126,17 @@ class ClientController extends Controller
             'Teléfono',
             'Fecha de nacimiento',
             'Correo electrónico',
-            'Cédula'
+            'Cédula',
+            'Acciones'
         ];
         return view('admin.clients.list', compact('clients', 'heads', 'success'));
+    }
+    public function showEdit(Request $request, $id)
+    {
+        // $search = $request->input('search')
+        $client = Client::find($id);
+        $client->birthday = Carbon::parse($client->birthday)->format('d/m/Y');
+        return view('admin.clients.edit', compact('client'));
     }
     public function showCreate(Request $request)
     {
