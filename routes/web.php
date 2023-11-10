@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::get('/clients', [ClientController::class, 'showView'])->name('clients');
 Route::get('/clients/create', [ClientController::class, 'showCreate'])->name('create-client');
+Route::get('/clients/{id}/edit', [ClientController::class, 'showEdit'])->name('edit-client');
 
 // Auth::routes();
 
