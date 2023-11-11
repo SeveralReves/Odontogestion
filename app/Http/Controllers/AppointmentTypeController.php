@@ -12,26 +12,21 @@ class AppointmentTypeController extends Controller
 {
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required',
             'type' => 'required',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
-        }
-
         $appointmentType = AppointmentType::create($request->all());
-        return response()->json($appointmentType, 201);
+        //return response()->json($appointmentType, 201);
+        return redirect()->route('appointment_type');
     }
 
     public function update(Request $request, $id)
     {
         $appointmentType = AppointmentType::find($id);
 
-        if (!$appointmentType) {
-            return response()->json(['message' => 'Tipo de cita no encontrado'], 404);
-        }
+        
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -74,10 +69,30 @@ class AppointmentTypeController extends Controller
     {
         $search = $request->input('search');
 
-        $appointmentTypes = AppointmentType::where('name', 'like', '%' . $search . '%')
+        $appointment_type = AppointmentType::where('name', 'like', '%' . $search . '%')
             ->orWhere('type', 'like', '%' . $search . '%')
             ->get();
 
         return response()->json($appointmentTypes);
     }
+
+    public function showView(Request $request)
+    {
+        // $search = $request->input('search')
+        $success = $request->get('success');
+        $appointment_type = AppointmentType::all();
+        $heads = [
+            'ID',
+            'Nombre',
+            'Tipo',
+            
+        ];
+        return view('admin.appointment_type.list', compact('appointment_type', 'heads', 'success'));
+    }
+    public function showCreate(Request $request)
+    {
+
+        return view('admin.appointment_type.create');
+    }
 }
+

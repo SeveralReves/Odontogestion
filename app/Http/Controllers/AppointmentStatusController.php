@@ -14,7 +14,7 @@ class AppointmentStatusController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'type' => 'required',
+            'status' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -80,4 +80,23 @@ class AppointmentStatusController extends Controller
 
         return response()->json($appointmentStatuses);
     }
+
+     public function showView(Request $request){
+        // $search = $request->input('search')
+        $success = $request->get('success');
+        $appointment_status = AppointmentStatus::all();
+        $heads = [
+            'ID',
+            'Nombre',
+            'Estado',
+            
+        ];
+        return view('admin.appointment_status.list', compact('appointment_status', 'heads', 'success'));
+    }
+    public function showCreate(Request $request)
+    {
+
+        return view('admin.status.create');
+    }
 }
+

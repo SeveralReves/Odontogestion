@@ -325,6 +325,16 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
+            'text' => 'Tipo de cita',
+            'url'  => '/appointment_types',
+            'icon' => 'fas fa-fw fa-address-card',
+        ],
+        [
+            'text' => 'Estado de Cita',
+            'url'  => '/appointment_statuses',
+            'icon' => 'fas fa-fw fa-address-card-o',
+        ],
+        [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-bookmark',
