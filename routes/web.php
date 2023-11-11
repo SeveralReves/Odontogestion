@@ -23,6 +23,7 @@ Auth::routes();
 
 Route::get('/clients', [ClientController::class, 'showView'])->name('clients');
 Route::get('/clients/create', [ClientController::class, 'showCreate'])->name('create-client');
+Route::get('/clients/{id}/edit', [ClientController::class, 'showEdit'])->name('edit-client');
 
 Route::get('/appointment_types', [AppointmentTypeController::class, 'showView'])->name('appointment_type');
 Route::get('/appointment_type/create', [AppointmentTypeController::class, 'showCreate'])->name('create-appointment_type');
