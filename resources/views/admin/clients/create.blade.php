@@ -21,13 +21,13 @@
 <form action="{{ route('clients.store') }}" method="post">
         @csrf
         <div class="row">
-            <x-adminlte-input name="name" label="Nombres" placeholder="Ingresa los nombres del cliente"
+            <x-adminlte-input name="name" label="Nombres"  value="{{ old('name') }}" placeholder="Ingresa los nombres del cliente"
                 fgroup-class="col-md-6" label-class="text-primary">
             </x-adminlte-input>
-            <x-adminlte-input name="lastname" label="Apellidos" placeholder="Ingresa los apellidos del cliente"
+            <x-adminlte-input name="lastname" label="Apellidos"  value="{{ old('lastname') }}" placeholder="Ingresa los apellidos del cliente"
                 fgroup-class="col-md-6" label-class="text-primary">
             </x-adminlte-input>
-            <x-adminlte-input name="id_number" label="Cédula de identidad" placeholder="XX.XXX.XXX" fgroup-class="col-md-6"
+            <x-adminlte-input name="id_number" label="Cédula de identidad" value="{{ old('id_number') }}" placeholder="XX.XXX.XXX" fgroup-class="col-md-6"
                 label-class="text-primary">
                 <x-slot name="bottomSlot">
                     <span class="text-sm text-gray">
@@ -35,10 +35,10 @@
                     </span>
                 </x-slot>
             </x-adminlte-input>
-            <x-adminlte-input name="email" label="Correo electrónico" placeholder="mail@mail.com" fgroup-class="col-md-6"
+            <x-adminlte-input name="email" label="Correo electrónico"  value="{{ old('email') }}" placeholder="mail@mail.com" fgroup-class="col-md-6"
                 label-class="text-primary">
             </x-adminlte-input>
-            <x-adminlte-input name="phone" label="Teléfono" placeholder="04121231212" fgroup-class="col-md-6"
+            <x-adminlte-input name="phone" label="Teléfono"  value="{{ old('phone') }}" placeholder="04121231212" fgroup-class="col-md-6"
                 label-class="text-primary">
                 <x-slot name="bottomSlot">
                     <span class="text-sm text-gray">
@@ -49,7 +49,7 @@
             @php
                 $config = ['format' => 'DD/MM/YYYY', 'maxDate' => 'js:moment()'];
             @endphp
-            <x-adminlte-input-date name="birthday" :config="$config" label="Fecha de nacimiento"
+            <x-adminlte-input-date name="birthday" :config="$config" label="Fecha de nacimiento"  value="{{ old('birthday') }}"
                 placeholder="Escoge una fecha..." fgroup-class="col-md-6" label-class="text-primary">
                 <x-slot name="prependSlot">
                     <div class="input-group-text bg-gradient-info">
@@ -57,12 +57,12 @@
                     </div>
                 </x-slot>
             </x-adminlte-input-date>
-            <x-adminlte-textarea name="address" label="Dirección" placeholder="Ingresa dirección..."
+            <x-adminlte-textarea name="address" label="Dirección" value="{{ old('address') }}" placeholder="Ingresa dirección..."
                 label-class="text-primary" fgroup-class="col-md-6" />
         </div>
         <div class="row">
             <div class="form-group col-md-6">
-                <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="primary"
+                <x-adminlte-button class="btn-flat" type="submit" label="Guardar" theme="primary"
                     icon="fas fa-lg fa-save" />
             </div>
         </div>
