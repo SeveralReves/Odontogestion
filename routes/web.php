@@ -23,7 +23,16 @@ Route::get('/clients', [ClientController::class, 'showView'])->name('clients');
 Route::get('/clients/create', [ClientController::class, 'showCreate'])->name('create-client');
 Route::get('/clients/{id}/edit', [ClientController::class, 'showEdit'])->name('edit-client');
 
+
+Route::get('/api/clients', [ClientController::class, 'index'])->name('clients.index');
+Route::get('/api/clients/{id}', [ClientController::class, 'show'])->name('clients.show');
+Route::post('/api/clients', [ClientController::class, 'store'])->name('clients.store');
+Route::put('/api/clients/{id}', [ClientController::class, 'update'])->name('clients.update');
+Route::delete('/api/clients/{id}', [ClientController::class, 'delete'])->name('clients.delete');
+
+
 // Auth::routes();
+
 
 // Route::get('/home', function() {
 //     return view('home');
