@@ -11,11 +11,18 @@ use Illuminate\Http\RedirectResponse;
 
 class ClientController extends Controller
 {
+    protected function messages()
+    {
+        return [
+            'required' => 'El campo :attribute es obligatorio.',
+            'regex' => 'El formato del campo :attribute no es válido.',
+            'date_format' => 'El campo :attribute debe tener el formato dd/mm/yyyy.',
+            'email.unique' => 'La dirección de correo electrónico ya está registrada.',
+            'id_number.unique' => 'El número de identificación ya está registrado.',
+        ];
+    }
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        // ]);
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'lastname' => 'required',
@@ -35,14 +42,9 @@ class ClientController extends Controller
                     return $query->whereNull('deleted_at');
                 })
             ],
-        ])->validate();
+        ], $this->messages())->validate();
 
 
-            // if ($validator->fails()) {
-            //     return redirect('clients/create')
-            //         ->withErrors($validator)
-            //         ->withInput();
-            // }
         // Transformar la fecha al formato de base de datos (Y-m-d)
         $request['birthday'] = Carbon::createFromFormat('d/m/Y', $request['birthday'])->format('Y-m-d');
 
@@ -54,7 +56,7 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         $client = Client::find($id);
-        
+
         if (!$client) {
             return response()->json(['message' => 'Cliente no encontrado'], 404);
         }
@@ -77,7 +79,7 @@ class ClientController extends Controller
 
         $client->update($requestData);
         return redirect()->route('clients')
-                    ->with('message', 'Cliente actualizado satisfactoriamente.');
+            ->with('message', 'Cliente actualizado satisfactoriamente.');
     }
 
     public function show($id)
@@ -101,7 +103,7 @@ class ClientController extends Controller
         $client->delete();
 
         return redirect()->route('clients')
-                    ->with('message', 'Cliente eliminado satisfactoriamente.');
+            ->with('message', 'Cliente eliminado satisfactoriamente.');
     }
     public function index(Request $request)
     {
