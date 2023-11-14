@@ -325,6 +325,11 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
+            'text' => 'Citas',
+            'url'  => '/appointments',
+            'icon' => 'fas fa-fw fa-address-book',
+        ],
+        [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-bookmark',

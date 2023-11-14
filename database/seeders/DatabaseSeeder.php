@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(AdminUserSeeder::class); // Llama al seeder AdminUserSeeder
+        $this->call(AppointmentStatusSeeder::class); // Llama al seeder AppointmentStatusSeeder
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
