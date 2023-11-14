@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AppointmentType;
+use App\Models\AppointmentStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
@@ -96,7 +96,7 @@ class AppointmentStatusController extends Controller
     public function showCreate(Request $request)
     {
 
-        return view('admin.status.create');
+        return view('admin.appointment_status.create');
     }
 }
 

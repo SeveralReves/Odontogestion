@@ -3,7 +3,7 @@
 @section('title', 'OdontoGestion')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Tipo de Cita</h1>
+    <h1 class="m-0 text-dark">Usuarios</h1>
 @stop
 @section('content')
 @if ($errors->any())
@@ -17,7 +17,7 @@
 @endif
     <div class="row">
         <div class="col-12">
-            <a href="appointment_type/create" class="btn btn-primary">Crear Nueva Cita</a>
+            <a href="users/create" class="btn btn-primary">Crear Nuevo Usuario</a>
         </div>
     </div>
     <div class="row">
@@ -25,14 +25,16 @@
             <div class="card">
                 <div class="card-body">
                     <x-adminlte-datatable id="table1" :heads="$heads">
-                        @foreach ($appointment_type as $row)
+                        @foreach ($users as $row)
                             <tr>
                                 <td>{{ $row->id }}</td>
                                 <td>{{ $row->name }}</td>
-                                <td>{{ $row->type }}</td>
+                                <td>{{ $row->password }}</td>
+                                <td>{{ $row->email }}</td>
+                                <td>{{ $row->role }}</td>
                                 <td>
 
-                                <a href="appointment_type/{{ $row->id }}/edit" class="btn btn-info">
+                                <a href="users/{{ $row->id }}/edit" class="btn btn-info">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a data-toggle="modal" data-target="#deleteModal-{{ $row->id }}"
@@ -48,19 +50,19 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLongTitle">¿Estás seguro que deseas
-                                                eliminar este tipo de cita?</h5>
+                                                eliminar este usuario?</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Si deseas eliminar a <b> {{ $row->name }} {{ $row->type }}</b> presiona
+                                            Si deseas eliminar a <b> {{ $row->name }} {{ $row->type }} {{$row->role}}</b> presiona
                                             en eliminar
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Cancelar</button>
-                                            <form action="{{ route('edit-appointment_type', $row->id) }}" method="POST"
+                                            <form action="{{ route('edit-users', $row->id) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')

@@ -24,7 +24,7 @@
             <x-adminlte-input name="name" label="Nombres" placeholder="Ingresa el nombre del Cliente "
                 fgroup-class="col-md-6" label-class="text-primary">
             </x-adminlte-input>
-            <x-adminlte-input name="type" label="Tipos" placeholder="Ingresa El tipo de cita"
+            <x-adminlte-input name="type" label="Tipo" placeholder="Ingresa El tipo de cita"
                 fgroup-class="col-md-6" label-class="text-primary">
             </x-adminlte-input>
         </div>

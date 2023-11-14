@@ -15,9 +15,9 @@ class UserController extends Controller
             'role' => 'required|in:Dentist,Assistant,Receptionist,Administrator',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
-        }
+        //if ($validator->fails()) {
+           // return response()->json(['error' => $validator->errors()], 422);
+        //}
         // Validar si el usuario que hace la petición es Administrador
         // if ($request->user()->can('Administrator')) {
             // Si es Administrador, crear el nuevo usuario
@@ -96,4 +96,29 @@ class UserController extends Controller
         return response()->json($users);
     }
     // Otros métodos para CRUD de usuarios: index(), show(), update(), destroy(), etc.
+
+    public function showView(Request $request)
+    {
+        // $search = $request->input('search')
+        $success = $request->get('success');
+        $users = User::all();
+        $heads = [
+            'ID',
+            'Nombre',
+            'email',
+            'Rol'
+        ];
+        return view('admin.users.list', compact('users', 'heads', 'success'));
+    }
+    public function showEdit(Request $request, $id)
+    {
+        // $search = $request->input('search')
+        $users = User::find($id);
+        return view('admin.users.edit', compact('users'));
+    }
+    public function showCreate(Request $request)
+    {
+
+        return view('admin.users.create');
+    }
 }

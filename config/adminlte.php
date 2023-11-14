@@ -320,6 +320,11 @@ return [
         // ],
         ['header' => 'Módulos'],
         [
+            'text' => 'Usuarios',
+            'url'  => '/users',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
             'text' => 'Clientes',
             'url'  => '/clients',
             'icon' => 'fas fa-fw fa-user',
@@ -332,6 +337,11 @@ return [
         [
             'text' => 'Estado de Cita',
             'url'  => '/appointment_statuses',
+            'icon' => 'fas fa-fw fa-address-card-o',
+        ],
+         [
+            'text' => 'Citas',
+            'url'  => '/appointments',
             'icon' => 'fas fa-fw fa-address-card-o',
         ],
         [

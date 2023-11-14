@@ -18,13 +18,13 @@
     </div>
 @endif
 {{-- @dd(session()->all()) --}}
-<form action="{{ route('store-appointment_Status') }}" method="post">
+<form action="{{ route('store-appointment_status') }}" method="post">
         @csrf
         <div class="row">
             <x-adminlte-input name="name" label="Nombres" placeholder="Ingresa el nombre del Cliente "
                 fgroup-class="col-md-6" label-class="text-primary">
             </x-adminlte-input>
-            <x-adminlte-input name="status" label="Estados" placeholder="Ingresa El Estado de Cita"
+            <x-adminlte-input name="type" label="Estado" placeholder="Ingresa El Estado de la Cita"
                 fgroup-class="col-md-6" label-class="text-primary">
             </x-adminlte-input>
         </div>

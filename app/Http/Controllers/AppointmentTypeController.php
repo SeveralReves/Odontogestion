@@ -94,5 +94,13 @@ class AppointmentTypeController extends Controller
 
         return view('admin.appointment_type.create');
     }
+
+    public function showEdit(Request $request, $id)
+    {
+        // $search = $request->input('search')
+        $appointment_type = AppointmentType::find($id);
+        return view('admin.appointment_type.edit', compact('appointment_type'));
+    }
+    
 }
 
