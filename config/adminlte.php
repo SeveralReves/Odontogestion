@@ -343,6 +343,9 @@ return [
             'text' => 'Citas',
             'url'  => '/appointments',
             'icon' => 'fas fa-fw fa-address-card-o',
+            'text' => 'Citas',
+            'url'  => '/appointments',
+            'icon' => 'fas fa-fw fa-address-book',
         ],
         [
             'text' => 'change_password',
