@@ -18,7 +18,7 @@
         </div>
     @endif
     {{-- @dd(session()->all()) --}}
-    <form action="{{ route('edit-appointment_type', $appointment_type->id) }}" method="post">
+    <form action="{{ route('appointment_type.update', $appointment_type->id) }}" method="post">
         @csrf
         @method('PUT')
         <div class="row">

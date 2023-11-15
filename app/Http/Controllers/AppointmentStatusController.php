@@ -12,23 +12,19 @@ class AppointmentStatusController extends Controller
 {
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required',
-            'status' => 'required',
+            'type' => 'required',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
-        }
-
         $appointmentStatus = AppointmentStatus::create($request->all());
-        return response()->json($appointmentStatus, 201);
+        //return response()->json($appointmentType, 201);
+        return redirect()->route('appointment_status');
     }
 
     public function update(Request $request, $id)
     {
         $appointmentStatus = AppointmentStatus::find($id);
-
         if (!$appointmentStatus) {
             return response()->json(['message' => 'Estado de cita no encontrado'], 404);
         }
@@ -43,7 +39,9 @@ class AppointmentStatusController extends Controller
         }
 
         $appointmentStatus->update($request->all());
-        return response()->json($appointmentStatus);
+        return redirect()->route('appointment_status')
+        ->with('message', 'Estado de cita actualizado satisfactoriamente');
+        
     }
 
     public function show($id)
@@ -97,6 +95,12 @@ class AppointmentStatusController extends Controller
     {
 
         return view('admin.appointment_status.create');
+    }
+    public function showEdit(Request $request, $id)
+    {
+        // $search = $request->input('search')
+        $appointment_status = AppointmentStatus::find($id);
+        return view('admin.appointment_status.edit', compact('appointment_status'));
     }
 }
 

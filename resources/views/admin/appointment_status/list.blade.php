@@ -31,7 +31,7 @@
                                 <td>{{ $row->name }}</td>
                                 <td>{{ $row->type }}</td>
                                 <td>
-                                 <a href="appointment_edit/{{ $row->id }}/edit" class="btn btn-info">
+                                 <a href="appointment_status/{{ $row->id }}/edit" class="btn btn-info">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a data-toggle="modal" data-target="#deleteModal-{{ $row->id }}"

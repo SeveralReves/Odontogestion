@@ -25,8 +25,10 @@ class AppointmentTypeController extends Controller
     public function update(Request $request, $id)
     {
         $appointmentType = AppointmentType::find($id);
+        if (!$appointmentType) {
+            return response()->json(['message' => 'Tipo de cita no encontrada'], 404);
 
-        
+        }
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -38,7 +40,9 @@ class AppointmentTypeController extends Controller
         }
 
         $appointmentType->update($request->all());
-        return response()->json($appointmentType);
+        return redirect()->route('appointment_type')
+        ->with('message', 'Tipo de cita actualizado satisfactoriamente');
+        
     }
 
     public function show($id)
@@ -55,14 +59,14 @@ class AppointmentTypeController extends Controller
     public function delete($id)
     {
         $appointmentType = AppointmentType::find($id);
-
         if (!$appointmentType) {
             return response()->json(['message' => 'Tipo de cita no encontrado'], 404);
         }
 
         $appointmentType->delete();
 
-        return response()->json(['message' => 'Tipo de cita eliminado']);
+        return redirect()->route('appointment_type')
+            ->with('message', 'Cliente eliminado satisfactoriamente.');
     }
 
     public function index(Request $request)

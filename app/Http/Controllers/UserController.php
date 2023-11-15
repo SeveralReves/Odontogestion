@@ -27,7 +27,8 @@ class UserController extends Controller
             $user->password = bcrypt($request->password);
             $user->role = $request->role;
             $user->save();
-            return response()->json(['message' => 'Usuario creado']);
+           // return response()->json(['message' => 'Usuario creado']);
+            return view('/users');
         // } else {
         //     return response()->json(['message' => 'No tienes permiso para crear usuarios'], 403);
         // }
@@ -59,6 +60,7 @@ class UserController extends Controller
         }
 
         $user->name = $request->name;
+        $user->email =$request->email;
         $user->role = $request->role;
         $user->save();
 
