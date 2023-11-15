@@ -4,7 +4,7 @@
 
 @section('content_header')
     <a type="button" href="/appointments" class="btn btn-link"> Regresar</a>
-    <h1 class="m-0 text-dark">Crear Cita</h1>
+    <h1 class="m-0 text-dark mb-4">Crear Cita</h1>
 @stop
 
 @section('content')

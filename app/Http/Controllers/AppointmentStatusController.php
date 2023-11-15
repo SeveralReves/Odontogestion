@@ -10,16 +10,29 @@ use Illuminate\Validation\Rule;
 
 class AppointmentStatusController extends Controller
 {
+    protected function messages()
+    {
+        return [
+            'required' => 'El campo :attribute es obligatorio.',
+            'regex' => 'El formato del campo :attribute no es válido.',
+            'date_format' => 'El campo :attribute debe tener el formato dd/mm/yyyy.',
+            'email.unique' => 'La dirección de correo electrónico ya está registrada.',
+            'id_number.unique' => 'El número de identificación ya está registrado.',
+        ];
+    }
+
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
-            'type' => 'required',
-        ]);
+            ],$this->messages());
+            
+            $request['type'] = 'appointment';
+    
 
         $appointmentStatus = AppointmentStatus::create($request->all());
         //return response()->json($appointmentType, 201);
-        return redirect()->route('appointment_status');
+        return redirect()->route('appointment_status')->with('message', 'Estado de Cita creado satisfactoriamente');
     }
 
     public function update(Request $request, $id)
@@ -29,18 +42,15 @@ class AppointmentStatusController extends Controller
             return response()->json(['message' => 'Estado de cita no encontrado'], 404);
         }
 
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required',
-            'type' => 'required',
+            
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
-        }
-
         $appointmentStatus->update($request->all());
+
         return redirect()->route('appointment_status')
-        ->with('message', 'Estado de cita actualizado satisfactoriamente');
+            ->with('message', 'Estado de cita actualizado satisfactoriamente');
         
     }
 
@@ -58,21 +68,21 @@ class AppointmentStatusController extends Controller
     public function delete($id)
     {
         $appointmentStatus = AppointmentStatus::find($id);
-
         if (!$appointmentStatus) {
             return response()->json(['message' => 'Estado de cita no encontrado'], 404);
         }
 
         $appointmentStatus->delete();
 
-        return response()->json(['message' => 'Estado de cita eliminado']);
+        return redirect()->route('appointment_status')
+            ->with('message', 'Estado de cita eliminado satisfactoriamente.');
     }
 
     public function index(Request $request)
     {
         $search = $request->input('search');
 
-        $appointmentStatuses = AppointmentStatus::where('name', 'like', '%' . $search . '%')
+        $appointment_status = AppointmentStatus::where('name', 'like', '%' . $search . '%')
             ->orWhere('type', 'like', '%' . $search . '%')
             ->get();
 
@@ -86,7 +96,7 @@ class AppointmentStatusController extends Controller
         $heads = [
             'ID',
             'Nombre',
-            'Estado',
+            'Acciones'
             
         ];
         return view('admin.appointment_status.list', compact('appointment_status', 'heads', 'success'));

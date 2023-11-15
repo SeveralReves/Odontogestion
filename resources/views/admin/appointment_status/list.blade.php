@@ -15,9 +15,14 @@
     </ul>
 </div>
 @endif
+ @if (session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-12">
-            <a href="appointment_status/create" class="btn btn-primary">Crear Nuevo Estado de cita</a>
+            <a href="appointment_status/create" class="btn btn-primary mb-4">Crear Nuevo Estado de cita</a>
         </div>
     </div>
     <div class="row">
@@ -29,7 +34,7 @@
                             <tr>
                                 <td>{{ $row->id }}</td>
                                 <td>{{ $row->name }}</td>
-                                <td>{{ $row->type }}</td>
+                                
                                 <td>
                                  <a href="appointment_status/{{ $row->id }}/edit" class="btn btn-info">
                                         <i class="fas fa-edit"></i>
@@ -52,13 +57,13 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Si deseas eliminar a <b> {{ $row->name }} {{ $row->type }}</b> presiona
+                                            Si deseas eliminar a <b> {{ $row->name }}</b> presiona
                                             en eliminar
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Cancelar</button>
-                                            <form action="{{ route('edit-appointment_status', $row->id) }}" method="POST"
+                                            <form action="{{ route('appointment_status.delete', $row->id) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
