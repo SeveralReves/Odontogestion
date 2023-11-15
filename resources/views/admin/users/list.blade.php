@@ -15,9 +15,14 @@
     </ul>
 </div>
 @endif
+@if (session('message'))
+<div class="alert alert-success">
+    {{ session('message') }}
+</div>
+@endif
     <div class="row">
         <div class="col-12">
-            <a href="users/create" class="btn btn-primary">Crear Nuevo Usuario</a>
+            <a href="users/create" class="btn btn-primary mb-4">Crear Nuevo Usuario</a>
         </div>
     </div>
     <div class="row">
@@ -29,7 +34,6 @@
                             <tr>
                                 <td>{{ $row->id }}</td>
                                 <td>{{ $row->name }}</td>
-                                <td>{{ $row->password }}</td>
                                 <td>{{ $row->email }}</td>
                                 <td>{{ $row->role }}</td>
                                 <td>
@@ -62,7 +66,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Cancelar</button>
-                                            <form action="{{ route('edit-users', $row->id) }}" method="POST"
+                                            <form action="{{ route('users.delete', $row->id) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')

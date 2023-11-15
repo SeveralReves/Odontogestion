@@ -46,8 +46,8 @@
                 </x-slot>
                 <option {{old('role') ? '' : 'selected'}} disabled>Seleccione un Rol de usuario</option>
                 
-                @foreach (['Asistente', 'Dentista', 'Administrador', 'Paciente'] as $key => $value)
-                    <option value="{{ $value }}" {{ old('role') == $value ? 'selected' : '' }}>{{ $value }}</option>
+                @foreach ($roles as $key => $value)
+                    <option value="{{ $value['value'] }}" {{ old('role') == $value['value'] ? 'selected' : '' }}>{{ $value['label'] }}</option>
                 @endforeach
             </x-adminlte-select2>
         </div>

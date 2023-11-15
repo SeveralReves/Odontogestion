@@ -66,7 +66,7 @@ Route::get('/api/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/api/users/{id}', [UserController::class, 'show'])->name('users.show');
 Route::post('/api/users', [UserController::class, 'store'])->name('users.store');
 Route::put('/api/users/{id}', [UserController::class, 'update'])->name('users.update');
-Route::delete('/api/users/{id}', [UserController::class, 'delete'])->name('users.delete');
+Route::delete('/api/users/{id}', [UserController::class, 'destroy'])->name('users.delete');
 
 // Appointments
 Route::get('/appointments', [AppointmentController::class, 'showView'])->name('appointments');

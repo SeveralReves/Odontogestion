@@ -27,29 +27,11 @@
         placeholder="Ingresa el nombre del Usuario"
         fgroup-class="col-md-6" label-class="text-primary">
     </x-adminlte-input>
-    <x-adminlte-input name="password" label="Contraseña" value="{{ old('password', $users->password) }}"
-     placeholder="Ingresa la contraseña"
-        fgroup-class="col-md-6" label-class="text-primary">
-    </x-adminlte-input>
-    <x-adminlte-input name="email" label="Correo electrónico" value="{{ old('email', $client->email) }}"
+    <x-adminlte-input name="email" label="Correo electrónico" value="{{ old('email', $users->email) }}"
      placeholder="mail@mail.com" fgroup-class="col-md-6"
     label-class="text-primary">
     </x-adminlte-input>
     <x-adminlte-select2 
-    name="role"  
-    label="Tipo de usuario"
-    label-class="text-lightblue"
-    data-placeholder="Seleccione un tipo de usuario..." 
-    value="{{ old('role') }}" 
-    fgroup-class="col-md-6" 
-    label-class="text-primary"
->
-    <x-slot name="prependSlot">
-        <div class="input-group-text bg-gradient-info">
-            <i class="fas fa-tags"></i>
-        </div>
-    </x-slot>
-    <option <x-adminlte-select2 
                 name="role"  
                 label="Tipo de usuario"
                 label-class="text-lightblue"
@@ -65,15 +47,10 @@
                 </x-slot>
                 <option {{old('role') ? '' : 'selected'}} disabled>Seleccione un Rol de usuario</option>
                 
-                @foreach (['Asistente', 'Dentista', 'Administrador', 'Paciente'] as $key => $value)
-                    <option value="{{ $value }}" {{ old('role') == $value ? 'selected' : '' }}>{{ $value }}</option>
+                @foreach ($roles as $key => $value)
+                    <option value="{{ $value['value'] }}" {{ old('role') == $value['value'] ? 'selected' : '' }}>{{ $value['label'] }}</option>
                 @endforeach
-            </x-adminlte-select2> disabled>Seleccione un Rol de usuario</option>
-    
-    @foreach (['Asistente', 'Dentista', 'Administrador', 'Paciente'] as $key => $value)
-        <option value="{{ old('password', $users->password) }}">{{ $value }}</option>
-    @endforeach
-</x-adminlte-select2>
+            </x-adminlte-select2>
 </div>
 <div class="row">
     <div class="form-group col-md-6">
