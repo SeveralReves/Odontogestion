@@ -6,18 +6,23 @@
     <h1 class="m-0 text-dark">Tipo de Cita</h1>
 @stop
 @section('content')
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-12">
-            <a href="appointment_type/create" class="btn btn-primary">Crear Nueva Cita</a>
+            <a href="{{route('create-appointment_type')}}" class="btn btn-primary mb-4">Crear Nuevo Tipo de Cita</a>
         </div>
     </div>
     <div class="row">
@@ -29,18 +34,17 @@
                             <tr>
                                 <td>{{ $row->id }}</td>
                                 <td>{{ $row->name }}</td>
-                                <td>{{ $row->type }}</td>
                                 <td>
 
-                                <a href="appointment_type/{{ $row->id }}/edit" class="btn btn-info">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a data-toggle="modal" data-target="#deleteModal-{{ $row->id }}"
-                                    class="btn btn-outline-danger">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+                                    <a href="{{route('edit-appointment_type', $row->id)}}" class="btn btn-info">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a data-toggle="modal" data-target="#deleteModal-{{ $row->id }}"
+                                        class="btn btn-outline-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
 
-                            </td>
+                                </td>
                             </tr>
                             <div class="modal fade" id="deleteModal-{{ $row->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -54,13 +58,13 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Si deseas eliminar a <b> {{ $row->name }} {{ $row->type }}</b> presiona
+                                            Si deseas eliminar a <b> {{ $row->name }} </b> presiona
                                             en eliminar
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Cancelar</button>
-                                            <form action="{{ route('edit-appointment_type', $row->id) }}" method="POST"
+                                            <form action="{{ route('appointment_type.delete', $row->id) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')

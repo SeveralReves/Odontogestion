@@ -35,15 +35,15 @@ Route::put('/api/clients/{id}', [ClientController::class, 'update'])->name('clie
 Route::delete('/api/clients/{id}', [ClientController::class, 'delete'])->name('clients.delete');
 
 Route::get('/appointment_types', [AppointmentTypeController::class, 'showView'])->name('appointment_type');
-Route::get('/appointment_type/create', [AppointmentTypeController::class, 'showCreate'])->name('create-appointment_type');
-Route::post('/appointment_type', [AppointmentTypeController::class, 'store'])->name('store-appointment_type');
-Route::get('/appointment_type/{id}/edit', [AppointmentTypeController::class, 'showEdit'])->name('edit-appointment_type');
+Route::get('/appointment_types/create', [AppointmentTypeController::class, 'showCreate'])->name('create-appointment_type');
+Route::post('/appointment_types', [AppointmentTypeController::class, 'store'])->name('store-appointment_type');
+Route::get('/appointment_types/{id}/edit', [AppointmentTypeController::class, 'showEdit'])->name('edit-appointment_type');
 
 Route::get('/api/appointment_types', [AppointmentTypeController::class, 'index'])->name('appointment_type.index');
-Route::get('/api/appointment_type/{id}', [AppointmentTypeController::class, 'show'])->name('appointment_type.show');
-Route::post('/api/appointment_type', [AppointmentTypeController::class, 'store'])->name('appointment_type.store');
-Route::put('/api/appointment_type/{id}', [AppointmentTypeController::class, 'update'])->name('appointment_type.update');
-Route::delete('/api/appointment_type/{id}', [AppointmentTypeController::class, 'delete'])->name('appointment_type.delete');
+Route::get('/api/appointment_types/{id}', [AppointmentTypeController::class, 'show'])->name('appointment_type.show');
+Route::post('/api/appointment_types', [AppointmentTypeController::class, 'store'])->name('appointment_type.store');
+Route::put('/api/appointment_types/{id}', [AppointmentTypeController::class, 'update'])->name('appointment_type.update');
+Route::delete('/api/appointment_types/{id}', [AppointmentTypeController::class, 'delete'])->name('appointment_type.delete');
 
 
 Route::get('/appointment_statuses', [AppointmentStatusController::class, 'showView'])->name('appointment_status');
