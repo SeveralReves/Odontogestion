@@ -35,7 +35,7 @@ class AppointmentController extends Controller
 
 
         // Transformar la fecha al formato de base de datos (Y-m-d)
-        $request['date'] = Carbon::createFromFormat('d/m/Y', $request['date'])->format('Y-m-d');
+        $request['date'] = Carbon::createFromFormat('d/m/Y', $request['date'])->format('d-m-Y');
         // $request['hour'] = Carbon::createFromFormat('HH:mm', $request['hour'])->format('HH:mm');
 
         $appointment = Appointment::create($request->all());
@@ -43,6 +43,45 @@ class AppointmentController extends Controller
         return redirect()->route('appointments')
             ->with('message', 'Cita creada satisfactoriamente.');
     }
+
+    public function update(Request $request, $id)
+    {
+        $appointments = Appointment::find($id);
+        if (!$appointments) {
+            return response()->json(['message' => 'Cita no encontrada'], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'client_id' => 'required',
+            'appointments_type_id' => 'required',
+            'status_id' => 'required',
+            'date' => 'required|date_format:d/m/Y',
+            'hour' => 'required',
+        
+        ], $this->messages())->validate();
+
+        // Transformar la fecha al formato de base de datos (Y-m-d)
+        $request['date'] = Carbon::createFromFormat('d/m/Y', $request['date'])->format('d-m-Y');
+
+        $appointments->update($request->all());
+
+        return redirect()->route('appointments')
+            ->with('message', 'Cita actualizada satisfactoriamente');
+        
+    }
+    public function delete($id)
+    {
+        $appointments = Appointment::find($id);
+        if (!$appointments) {
+            return response()->json(['message' => 'Cita no encontrada'], 404);
+        }
+
+        $appointments->delete();
+
+        return redirect()->route('appointments')
+            ->with('message', 'Cita eliminada satisfactoriamente.');
+    }
+
     public function showView(Request $request)
     {
         $appointments = Appointment::all();
@@ -55,6 +94,15 @@ class AppointmentController extends Controller
             'Tipo de cita',
         ];
         return view('admin.appointments.list', compact('appointments', 'heads'));
+    }
+
+    public function showEdit(Request $request, $id)
+    {
+    $appointments = Appointment::find($id);
+    $clients = Client::all();
+    $statuses = AppointmentStatus::all();
+    $types = AppointmentType::all();
+    return view('admin.appointments.edit', compact('appointments', 'clients' , 'types' , 'statuses')); 
     }
     public function showCreate(Request $request)
     {
