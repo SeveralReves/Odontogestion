@@ -10,40 +10,47 @@ use Illuminate\Validation\Rule;
 
 class AppointmentTypeController extends Controller
 {
+    protected function messages()
+    {
+        return [
+            'required' => 'El campo :attribute es obligatorio.',
+            'regex' => 'El formato del campo :attribute no es válido.',
+            'date_format' => 'El campo :attribute debe tener el formato dd/mm/yyyy.',
+            'email.unique' => 'La dirección de correo electrónico ya está registrada.',
+            'id_number.unique' => 'El número de identificación ya está registrado.',
+        ];
+    }
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required',
-            'type' => 'required',
-        ]);
+        ],$this->messages());
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
-        }
+        $request['type'] = 'appointment';
 
         $appointmentType = AppointmentType::create($request->all());
-        return response()->json($appointmentType, 201);
+        //return response()->json($appointmentType, 201);
+        return redirect()->route('appointment_type')->with('message', 'Tipo de cita creado satisfactoriamente');
     }
 
     public function update(Request $request, $id)
     {
         $appointmentType = AppointmentType::find($id);
-
         if (!$appointmentType) {
-            return response()->json(['message' => 'Tipo de cita no encontrado'], 404);
+            return response()->json(['message' => 'Tipo de cita no encontrada'], 404);
         }
 
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required',
-            'type' => 'required',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
-        }
+
 
         $appointmentType->update($request->all());
-        return response()->json($appointmentType);
+
+        return redirect()->route('appointment_type')
+        ->with('message', 'Tipo de cita actualizado satisfactoriamente');
+        
     }
 
     public function show($id)
@@ -60,24 +67,51 @@ class AppointmentTypeController extends Controller
     public function delete($id)
     {
         $appointmentType = AppointmentType::find($id);
-
         if (!$appointmentType) {
             return response()->json(['message' => 'Tipo de cita no encontrado'], 404);
         }
 
         $appointmentType->delete();
 
-        return response()->json(['message' => 'Tipo de cita eliminado']);
+        return redirect()->route('appointment_type')
+            ->with('message', 'Tipo de cita eliminado satisfactoriamente.');
     }
 
     public function index(Request $request)
     {
         $search = $request->input('search');
 
-        $appointmentTypes = AppointmentType::where('name', 'like', '%' . $search . '%')
+        $appointment_type = AppointmentType::where('name', 'like', '%' . $search . '%')
             ->orWhere('type', 'like', '%' . $search . '%')
             ->get();
 
-        return response()->json($appointmentTypes);
+        return response()->json($appointment_type);
     }
+
+    public function showView(Request $request)
+    {
+        // $search = $request->input('search')
+        $success = $request->get('success');
+        $appointment_type = AppointmentType::all();
+        $heads = [
+            'ID',
+            'Nombre',
+            'Acciones',
+        ];
+        return view('admin.appointment_type.list', compact('appointment_type', 'heads', 'success'));
+    }
+    public function showCreate(Request $request)
+    {
+
+        return view('admin.appointment_type.create');
+    }
+
+    public function showEdit(Request $request, $id)
+    {
+        // $search = $request->input('search')
+        $appointment_type = AppointmentType::find($id);
+        return view('admin.appointment_type.edit', compact('appointment_type'));
+    }
+    
 }
+

@@ -324,10 +324,34 @@ return [
             'url'  => '/clients',
             'icon' => 'fas fa-fw fa-user',
         ],
+         [
+            'text' => 'Citas',
+            'url'  => '/appointments',
+            'icon' => 'fas fa-fw fa-address-card-o',
+            'text' => 'Citas',
+            'url'  => '/appointments',
+            'icon' => 'fas fa-fw fa-address-book',
+        ],
+        [
+            'text' => 'Tipo de cita',
+            'url'  => '/appointment_types',
+            'icon' => 'fas fa-fw fa-address-card',
+        ],
+        [
+            'text' => 'Estado de Cita',
+            'url'  => '/appointment_statuses',
+            'icon' => 'fas fa-fw fa-address-card',
+        ],
         [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-bookmark',
+
+        ],
+        [
+            'text' => 'Usuarios',
+            'url'  => '/users',
+            'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text'    => 'multilevel',

@@ -118,8 +118,6 @@ class ClientController extends Controller
 
     public function showView(Request $request)
     {
-        // $search = $request->input('search')
-        $success = $request->get('success');
         $clients = Client::all();
         $heads = [
             'ID',
@@ -131,7 +129,7 @@ class ClientController extends Controller
             'Cédula',
             'Acciones'
         ];
-        return view('admin.clients.list', compact('clients', 'heads', 'success'));
+        return view('admin.clients.list', compact('clients', 'heads'));
     }
     public function showEdit(Request $request, $id)
     {
